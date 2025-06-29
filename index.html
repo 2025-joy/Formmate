@@ -1,225 +1,2261 @@
+
+
+
+
+
+
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Formmate - Your Multi-Tool Solution</title>
+
     <style>
+
         /* CSS Reset and Base Styles */
+
         * {
+
             margin: 0;
+
             padding: 0;
+
             box-sizing: border-box;
+
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
         }
+
+
 
         body {
-            background-color: #1E1E2F;
-            color: #EAEAEA;
+
+            background-color: #FFFFFF;
+
+            color: #333333;
+
             line-height: 1.6;
+
+            min-height: 100vh;
+
+            display: flex;
+
+            flex-direction: column;
+
         }
+
+
 
         /* Header Styles */
+
         header {
-            background-color: #2B2D42;
+
+            background-color: #FFFFFF;
+
             padding: 2rem 1rem;
+
             text-align: center;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+            border-bottom: 1px solid #EEEEEE;
+
         }
+
+
 
         header h1 {
+
             font-size: 2.5rem;
+
             margin-bottom: 0.5rem;
-            color: #FFD700;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+
+            color: #003366;
+
+            font-weight: 700;
+
         }
+
+
 
         header p {
+
             font-size: 1.1rem;
-            opacity: 0.9;
+
+            color: #666666;
+
         }
+
+
 
         /* Main Content Styles */
+
         .container {
+
             max-width: 1200px;
+
             margin: 2rem auto;
+
             padding: 0 1rem;
+
+            flex: 1;
+
         }
+
+
 
         .tools-grid {
+
             display: grid;
+
             grid-template-columns: repeat(2, 1fr);
+
             gap: 1.5rem;
+
         }
+
+
 
         /* Tool Card Styles */
+
         .tool-card {
-            background-color: #3A3D5B;
+
+            background-color: #FFFFFF;
+
             border-radius: 8px;
+
             padding: 1.5rem;
+
             transition: all 0.3s ease;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+
+            display: flex;
+
+            flex-direction: column;
+
+            border: 1px solid #E0E0E0;
+
         }
+
+
 
         .tool-card:hover {
-            background-color: #FFD700;
-            color: #1E1E2F;
+
             transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(255, 215, 0, 0.2);
+
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+
+            border-color: #003366;
+
         }
+
+
 
         .tool-card h2 {
+
             font-size: 1.5rem;
+
             margin-bottom: 0.75rem;
-            color: inherit;
+
+            color: #003366;
+
+            font-weight: 600;
+
         }
+
+
 
         .tool-card p {
+
             margin-bottom: 1.5rem;
-            color: inherit;
-            opacity: 0.9;
+
+            color: #555555;
+
+            flex-grow: 1;
+
         }
+
+
+
+        /* Tool Functionality Section */
+
+        .tool-functionality {
+
+            margin-top: 1rem;
+
+            display: none;
+
+            animation: fadeIn 0.3s ease;
+
+        }
+
+
+
+        @keyframes fadeIn {
+
+            from { opacity: 0; transform: translateY(10px); }
+
+            to { opacity: 1; transform: translateY(0); }
+
+        }
+
+
+
+        .tool-card.active .tool-functionality {
+
+            display: block;
+
+        }
+
+
+
+        .tool-card.active {
+
+            padding-bottom: 2rem;
+
+        }
+
+
+
+        /* Input/Output Styles */
+
+        .file-upload {
+
+            margin-bottom: 1rem;
+
+        }
+
+
+
+        .file-upload label {
+
+            display: block;
+
+            margin-bottom: 0.5rem;
+
+            font-weight: 500;
+
+            color: #444444;
+
+        }
+
+
+
+        .file-upload input {
+
+            width: 100%;
+
+            padding: 0.5rem;
+
+            border-radius: 4px;
+
+            border: 1px solid #CCCCCC;
+
+            background-color: #FFFFFF;
+
+            color: #333333;
+
+        }
+
+
+
+        .tool-options {
+
+            margin: 1rem 0;
+
+        }
+
+
+
+        .tool-options label {
+
+            display: block;
+
+            margin-bottom: 0.5rem;
+
+            color: #444444;
+
+            font-weight: 500;
+
+        }
+
+
+
+        .tool-options select, 
+
+        .tool-options input[type="number"],
+
+        .tool-options input[type="text"],
+
+        .tool-options input[type="range"] {
+
+            width: 100%;
+
+            padding: 0.5rem;
+
+            margin-bottom: 1rem;
+
+            border-radius: 4px;
+
+            border: 1px solid #CCCCCC;
+
+            background-color: #FFFFFF;
+
+            color: #333333;
+
+        }
+
+
+
+        .output-container {
+
+            margin-top: 1rem;
+
+            border: 1px dashed #CCCCCC;
+
+            padding: 1rem;
+
+            border-radius: 4px;
+
+            text-align: center;
+
+            min-height: 100px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background-color: #F9F9F9;
+
+        }
+
+
+
+        .output-image {
+
+            max-width: 100%;
+
+            max-height: 200px;
+
+            display: none;
+
+        }
+
+
+
+        .download-btn {
+
+            margin-top: 1rem;
+
+            display: none;
+
+        }
+
+
 
         /* Button Styles */
+
         .btn {
+
             display: inline-block;
-            background-color: #FFD700;
-            color: #1E1E2F;
-            padding: 0.6rem 1.2rem;
+
+            background-color: #003366;
+
+            color: #FFFFFF;
+
+            padding: 0.7rem 1.4rem;
+
             border: none;
-            border-radius: 5px;
-            font-weight: bold;
+
+            border-radius: 6px;
+
+            font-weight: 600;
+
             cursor: pointer;
-            transition: background-color 0.3s ease;
+
+            transition: all 0.3s ease;
+
             text-decoration: none;
+
             font-size: 0.95rem;
+
+            text-align: center;
+
         }
+
+
 
         .btn:hover {
-            background-color: #E6C200;
+
+            background-color: #000000;
+
+            color: #FFFFFF;
+
+            transform: translateY(-2px);
+
         }
 
-        .tool-card:hover .btn {
-            background-color: #1E1E2F;
-            color: #FFD700;
+
+
+        .process-btn {
+
+            background-color: #003366;
+
+            color: #FFFFFF;
+
         }
 
-        .tool-card:hover .btn:hover {
-            background-color: #2B2D42;
-            color: #FFD700;
+
+
+        .process-btn:hover {
+
+            background-color: #001a33;
+
         }
+
+
+
+        .download-btn {
+
+            background-color: #28a745;
+
+            color: #FFFFFF;
+
+        }
+
+
+
+        .download-btn:hover {
+
+            background-color: #218838;
+
+        }
+
+
 
         /* Footer Styles */
+
         footer {
-            background-color: #2B2D42;
-            text-align: center;
-            padding: 1.5rem;
+
+            background-color: #003366;
+
+            padding: 3rem 1rem;
+
             margin-top: 3rem;
+
         }
 
-        footer p {
-            opacity: 0.8;
+
+
+        .footer-content {
+
+            max-width: 1200px;
+
+            margin: 0 auto;
+
+            display: grid;
+
+            grid-template-columns: repeat(3, 1fr);
+
+            gap: 3rem;
+
+            color: #FFFFFF;
+
         }
+
+
+
+        .footer-column h3 {
+
+            color: #FFFFFF;
+
+            margin-bottom: 1.5rem;
+
+            font-size: 1.2rem;
+
+            font-weight: 600;
+
+            position: relative;
+
+            padding-bottom: 0.5rem;
+
+        }
+
+
+
+        .footer-column h3::after {
+
+            content: '';
+
+            position: absolute;
+
+            left: 0;
+
+            bottom: 0;
+
+            width: 40px;
+
+            height: 2px;
+
+            background-color: #FFFFFF;
+
+        }
+
+
+
+        .footer-column ul {
+
+            list-style: none;
+
+        }
+
+
+
+        .footer-column ul li {
+
+            margin-bottom: 0.8rem;
+
+        }
+
+
+
+        .footer-column ul li a {
+
+            color: #DDDDDD;
+
+            text-decoration: none;
+
+            transition: color 0.3s ease;
+
+        }
+
+
+
+        .footer-column ul li a:hover {
+
+            color: #FFFFFF;
+
+        }
+
+
+
+        .footer-bottom {
+
+            text-align: center;
+
+            margin-top: 3rem;
+
+            padding-top: 1.5rem;
+
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+
+            color: #AAAAAA;
+
+            font-size: 0.9rem;
+
+        }
+
+
+
+        .social-links {
+
+            display: flex;
+
+            gap: 1.2rem;
+
+            margin-top: 1.5rem;
+
+        }
+
+
+
+        .social-links a {
+
+            color: #FFFFFF;
+
+            font-size: 1.3rem;
+
+            transition: transform 0.3s ease;
+
+        }
+
+
+
+        .social-links a:hover {
+
+            transform: translateY(-3px);
+
+            color: #FFFFFF;
+
+        }
+
+
 
         /* Responsive Design */
+
         @media (max-width: 768px) {
+
             .tools-grid {
+
                 grid-template-columns: 1fr;
+
             }
+
+
+
+            .footer-content {
+
+                grid-template-columns: 1fr;
+
+                gap: 2rem;
+
+            }
+
+
 
             header h1 {
+
                 font-size: 2rem;
+
             }
+
         }
+
+
 
         @media (max-width: 480px) {
+
             .tool-card {
+
                 padding: 1.2rem;
+
             }
+
+
 
             .tool-card h2 {
+
                 font-size: 1.3rem;
+
             }
+
+            
+
+            .footer-content {
+
+                gap: 1.5rem;
+
+            }
+
         }
+
     </style>
+
 </head>
+
 <body>
+
     <header>
+
         <h1>Formmate</h1>
+
         <p>Your all-in-one solution for digital tools</p>
+
     </header>
 
+
+
     <div class="container">
+
         <div class="tools-grid">
+
             <!-- Tool Card 1: Photo Resize -->
-            <div class="tool-card">
+
+            <div class="tool-card" id="photo-resize">
+
                 <h2>Photo Resize</h2>
+
                 <p>Quickly resize your images to any dimension while maintaining quality.</p>
-                <button class="btn" onclick="redirectToTool('Photo Resize')">Use Tool</button>
+
+                <button class="btn use-tool-btn">Use Tool</button>
+
+                
+
+                <div class="tool-functionality">
+
+                    <div class="file-upload">
+
+                        <label for="resize-image">Upload Image:</label>
+
+                        <input type="file" id="resize-image" accept="image/*">
+
+                    </div>
+
+                    
+
+                    <div class="tool-options">
+
+                        <label for="resize-width">Width (px):</label>
+
+                        <input type="number" id="resize-width" placeholder="Enter width" min="50" max="5000">
+
+                        
+
+                        <label for="resize-height">Height (px):</label>
+
+                        <input type="number" id="resize-height" placeholder="Enter height" min="50" max="5000">
+
+                        
+
+                        <label for="resize-quality">Quality (1-100):</label>
+
+                        <input type="number" id="resize-quality" placeholder="80" min="1" max="100" value="80">
+
+                    </div>
+
+                    
+
+                    <button class="btn process-btn" onclick="resizeImage()">Resize Image</button>
+
+                    
+
+                    <div class="output-container">
+
+                        <img id="resized-image" class="output-image" alt="Resized image">
+
+                        <p id="resize-placeholder">Your resized image will appear here</p>
+
+                    </div>
+
+                    
+
+                    <a id="resize-download" class="btn download-btn" download="resized-image.png">Download Image</a>
+
+                </div>
+
             </div>
+
+
 
             <!-- Tool Card 2: Signature Resize -->
-            <div class="tool-card">
+
+            <div class="tool-card" id="signature-resize">
+
                 <h2>Signature Resize</h2>
+
                 <p>Optimize your digital signatures for documents and forms.</p>
-                <button class="btn" onclick="redirectToTool('Signature Resize')">Use Tool</button>
+
+                <button class="btn use-tool-btn">Use Tool</button>
+
+                
+
+                <div class="tool-functionality">
+
+                    <div class="file-upload">
+
+                        <label for="signature-image">Upload Signature:</label>
+
+                        <input type="file" id="signature-image" accept="image/*">
+
+                    </div>
+
+                    
+
+                    <div class="tool-options">
+
+                        <label for="signature-width">Width (px):</label>
+
+                        <input type="number" id="signature-width" placeholder="300" min="50" max="1000">
+
+                        
+
+                        <label for="signature-background">Background:</label>
+
+                        <select id="signature-background">
+
+                            <option value="transparent">Transparent</option>
+
+                            <option value="white">White</option>
+
+                            <option value="black">Black</option>
+
+                        </select>
+
+                    </div>
+
+                    
+
+                    <button class="btn process-btn" onclick="resizeSignature()">Resize Signature</button>
+
+                    
+
+                    <div class="output-container">
+
+                        <img id="signature-output" class="output-image" alt="Resized signature">
+
+                        <p id="signature-placeholder">Your resized signature will appear here</p>
+
+                    </div>
+
+                    
+
+                    <a id="signature-download" class="btn download-btn" download="signature.png">Download Signature</a>
+
+                </div>
+
             </div>
+
+
 
             <!-- Tool Card 3: JPG to PDF -->
-            <div class="tool-card">
+
+            <div class="tool-card" id="jpg-to-pdf">
+
                 <h2>JPG to PDF</h2>
+
                 <p>Convert your JPG images to PDF documents with ease.</p>
-                <button class="btn" onclick="redirectToTool('JPG to PDF')">Use Tool</button>
+
+                <button class="btn use-tool-btn">Use Tool</button>
+
+                
+
+                <div class="tool-functionality">
+
+                    <div class="file-upload">
+
+                        <label for="jpg-files">Upload JPG Images:</label>
+
+                        <input type="file" id="jpg-files" accept="image/jpeg" multiple>
+
+                    </div>
+
+                    
+
+                    <div class="tool-options">
+
+                        <label for="pdf-orientation">Page Orientation:</label>
+
+                        <select id="pdf-orientation">
+
+                            <option value="portrait">Portrait</option>
+
+                            <option value="landscape">Landscape</option>
+
+                        </select>
+
+                        
+
+                        <label for="pdf-margin">Margin (mm):</label>
+
+                        <input type="number" id="pdf-margin" min="0" max="50" value="10">
+
+                    </div>
+
+                    
+
+                    <button class="btn process-btn" onclick="convertJpgToPdf()">Convert to PDF</button>
+
+                    
+
+                    <div class="output-container">
+
+                        <p id="pdf-conversion-status">PDF will be generated after conversion</p>
+
+                    </div>
+
+                    
+
+                    <a id="pdf-download" class="btn download-btn">Download PDF</a>
+
+                </div>
+
             </div>
+
+
 
             <!-- Tool Card 4: PDF to JPG -->
-            <div class="tool-card">
+
+            <div class="tool-card" id="pdf-to-jpg">
+
                 <h2>PDF to JPG</h2>
+
                 <p>Extract images from PDF files or convert entire pages to JPG.</p>
-                <button class="btn" onclick="redirectToTool('PDF to JPG')">Use Tool</button>
+
+                <button class="btn use-tool-btn">Use Tool</button>
+
+                
+
+                <div class="tool-functionality">
+
+                    <div class="file-upload">
+
+                        <label for="pdf-file">Upload PDF:</label>
+
+                        <input type="file" id="pdf-file" accept="application/pdf">
+
+                    </div>
+
+                    
+
+                    <div class="tool-options">
+
+                        <label for="jpg-quality">JPG Quality:</label>
+
+                        <input type="number" id="jpg-quality" min="1" max="100" value="85">
+
+                        
+
+                        <label for="jpg-resolution">Resolution (DPI):</label>
+
+                        <select id="jpg-resolution">
+
+                            <option value="72">72 DPI (Web)</option>
+
+                            <option value="150">150 DPI (Good)</option>
+
+                            <option value="300" selected>300 DPI (Print)</option>
+
+                        </select>
+
+                    </div>
+
+                    
+
+                    <button class="btn process-btn" onclick="convertPdfToJpg()">Convert to JPG</button>
+
+                    
+
+                    <div class="output-container" id="jpg-output-container">
+
+                        <p id="jpg-conversion-status">JPG images will appear here</p>
+
+                    </div>
+
+                    
+
+                    <div id="jpg-download-btns" style="display: none;">
+
+                        <p>Download converted images:</p>
+
+                    </div>
+
+                </div>
+
             </div>
+
+
 
             <!-- Tool Card 5: Image Compressor -->
-            <div class="tool-card">
+
+            <div class="tool-card" id="image-compressor">
+
                 <h2>Image Compressor</h2>
+
                 <p>Reduce image file size without noticeable quality loss.</p>
-                <button class="btn" onclick="redirectToTool('Image Compressor')">Use Tool</button>
+
+                <button class="btn use-tool-btn">Use Tool</button>
+
+                
+
+                <div class="tool-functionality">
+
+                    <div class="file-upload">
+
+                        <label for="compress-image">Upload Image:</label>
+
+                        <input type="file" id="compress-image" accept="image/*">
+
+                    </div>
+
+                    
+
+                    <div class="tool-options">
+
+                        <label for="compress-quality">Compression Level (1-100):</label>
+
+                        <input type="range" id="compress-quality" min="1" max="100" value="70">
+
+                        <span id="quality-value">70%</span>
+
+                        
+
+                        <label for="compress-format">Output Format:</label>
+
+                        <select id="compress-format">
+
+                            <option value="original">Original Format</option>
+
+                            <option value="jpeg">JPEG</option>
+
+                            <option value="png">PNG</option>
+
+                            <option value="webp">WebP</option>
+
+                        </select>
+
+                    </div>
+
+                    
+
+                    <button class="btn process-btn" onclick="compressImage()">Compress Image</button>
+
+                    
+
+                    <div class="output-container">
+
+                        <div id="compression-stats" style="display: none;">
+
+                            <p>Original Size: <span id="original-size">0 KB</span></p>
+
+                            <p>Compressed Size: <span id="compressed-size">0 KB</span></p>
+
+                            <p>Reduction: <span id="reduction-percent">0%</span></p>
+
+                        </div>
+
+                        <img id="compressed-image" class="output-image" alt="Compressed image">
+
+                        <p id="compress-placeholder">Your compressed image will appear here</p>
+
+                    </div>
+
+                    
+
+                    <a id="compress-download" class="btn download-btn" download="compressed-image.jpg">Download Image</a>
+
+                </div>
+
             </div>
+
+
 
             <!-- Tool Card 6: Resume Builder -->
-            <div class="tool-card">
+
+            <div class="tool-card" id="resume-builder">
+
                 <h2>Resume Builder</h2>
+
                 <p>Create professional resumes with customizable templates.</p>
-                <button class="btn" onclick="redirectToTool('Resume Builder')">Use Tool</button>
+
+                <button class="btn use-tool-btn">Use Tool</button>
+
+                
+
+                <div class="tool-functionality">
+
+                    <div class="tool-options">
+
+                        <label for="resume-template">Choose Template:</label>
+
+                        <select id="resume-template">
+
+                            <option value="modern">Modern</option>
+
+                            <option value="classic">Classic</option>
+
+                            <option value="creative">Creative</option>
+
+                            <option value="minimal">Minimal</option>
+
+                        </select>
+
+                        
+
+                        <label for="resume-name">Full Name:</label>
+
+                        <input type="text" id="resume-name" placeholder="Your Name">
+
+                        
+
+                        <label for="resume-title">Professional Title:</label>
+
+                        <input type="text" id="resume-title" placeholder="e.g. Web Developer">
+
+                    </div>
+
+                    
+
+                    <button class="btn process-btn" onclick="previewResume()">Preview Resume</button>
+
+                    
+
+                    <div class="output-container">
+
+                        <iframe id="resume-preview" style="width: 100%; height: 400px; border: none; display: none;"></iframe>
+
+                        <p id="resume-placeholder">Your resume preview will appear here</p>
+
+                    </div>
+
+                    
+
+                          <button class="btn download-btn" onclick="downloadResume()" style="display: none;">Download Resume (PDF)</button>
+
+                </div>
+
             </div>
+
+
 
             <!-- Tool Card 7: Background Remover -->
-            <div class="tool-card">
+
+            <div class="tool-card" id="background-remover">
+
                 <h2>Background Remover</h2>
+
                 <p>Remove backgrounds from images automatically with AI.</p>
-                <button class="btn" onclick="redirectToTool('Background Remover')">Use Tool</button>
+
+                <button class="btn use-tool-btn">Use Tool</button>
+
+                
+
+                <div class="tool-functionality">
+
+                    <div class="file-upload">
+
+                        <label for="bg-remove-image">Upload Image:</label>
+
+                        <input type="file" id="bg-remove-image" accept="image/*">
+
+                    </div>
+
+                    
+
+                    <div class="tool-options">
+
+                        <label for="bg-replacement">Background Replacement:</label>
+
+                        <select id="bg-replacement">
+
+                            <option value="transparent">Transparent</option>
+
+                            <option value="white">White</option>
+
+                            <option value="custom">Custom Color</option>
+
+                        </select>
+
+                        
+
+                        <div id="custom-color-container" style="display: none;">
+
+                            <label for="custom-bg-color">Custom Color:</label>
+
+                            <input type="color" id="custom-bg-color" value="#FFFFFF">
+
+                        </div>
+
+                    </div>
+
+                    
+
+                    <button class="btn process-btn" onclick="removeBackground()">Remove Background</button>
+
+                    
+
+                    <div class="output-container">
+
+                        <img id="bg-removed-image" class="output-image" alt="Background removed image">
+
+                        <p id="bg-remove-placeholder">Your image with removed background will appear here</p>
+
+                    </div>
+
+                    
+
+                    <a id="bg-remove-download" class="btn download-btn" download="no-bg-image.png">Download Image</a>
+
+                </div>
+
             </div>
+
+
 
             <!-- Tool Card 8: File Converter -->
-            <div class="tool-card">
+
+            <div class="tool-card" id="file-converter">
+
                 <h2>File Converter</h2>
+
                 <p>Convert between various file formats with just a few clicks.</p>
-                <button class="btn" onclick="redirectToTool('File Converter')">Use Tool</button>
+
+                <button class="btn use-tool-btn">Use Tool</button>
+
+                
+
+                <div class="tool-functionality">
+
+                    <div class="file-upload">
+
+                        <label for="source-file">Upload File:</label>
+
+                        <input type="file" id="source-file">
+
+                    </div>
+
+                    
+
+                    <div class="tool-options">
+
+                        <label for="target-format">Convert To:</label>
+
+                        <select id="target-format">
+
+                            <optgroup label="Image Formats">
+
+                                <option value="jpg">JPG</option>
+
+                                <option value="png">PNG</option>
+
+                                <option value="webp">WebP</option>
+
+                                <option value="gif">GIF</option>
+
+                            </optgroup>
+
+                            <optgroup label="Document Formats">
+
+                                <option value="pdf">PDF</option>
+
+                                <option value="docx">DOCX</option>
+
+                                <option value="txt">TXT</option>
+
+                            </optgroup>
+
+                        </select>
+
+                        
+
+                        <div id="conversion-options"></div>
+
+                    </div>
+
+                    
+
+                    <button class="btn process-btn" onclick="convertFile()">Convert File</button>
+
+                    
+
+                    <div class="output-container">
+
+                        <p id="conversion-status">Converted file will be available here</p>
+
+                    </div>
+
+                    
+
+                    <a id="converted-download" class="btn download-btn" style="display: none;">Download Converted File</a>
+
+                </div>
+
             </div>
+
         </div>
+
     </div>
 
+
+
     <footer>
-        <p>&copy; 2023 Formmate. All rights reserved.</p>
+
+        <div class="footer-content">
+
+            <div class="footer-column">
+
+                <h3>Formmate Tools</h3>
+
+                <ul>
+
+                    <li><a href="#photo-resize">Photo Resize</a></li>
+
+                    <li><a href="#signature-resize">Signature Resize</a></li>
+
+                    <li><a href="#jpg-to-pdf">JPG to PDF</a></li>
+
+                    <li><a href="#pdf-to-jpg">PDF to JPG</a></li>
+
+                </ul>
+
+            </div>
+
+            
+
+            <div class="footer-column">
+
+                <h3>Resources</h3>
+
+                <ul>
+
+                    <li><a href="#">Help Center</a></li>
+
+                    <li><a href="#">Tutorials</a></li>
+
+                    <li><a href="#">API Documentation</a></li>
+
+                    <li><a href="#">Blog</a></li>
+
+                </ul>
+
+            </div>
+
+            
+
+            <div class="footer-column">
+
+                <h3>Company</h3>
+
+                <ul>
+
+                    <li><a href="#">About Us</a></li>
+
+                    <li><a href="#">Contact</a></li>
+
+                    <li><a href="#">Privacy Policy</a></li>
+
+                    <li><a href="#">Terms of Service</a></li>
+
+                </ul>
+
+                
+
+                <div class="social-links">
+
+                    <a href="#" aria-label="Facebook">📘</a>
+
+                    <a href="#" aria-label="Twitter">🐦</a>
+
+                    <a href="#" aria-label="Instagram">📷</a>
+
+                    <a href="#" aria-label="LinkedIn">💼</a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        
+
+        <div class="footer-bottom">
+
+            <p>&copy; 2025 Formmate. All rights reserved.</p>
+
+        </div>
+
     </footer>
 
+
+
     <script>
-        // JavaScript for button click functionality
-        function redirectToTool(toolName) {
-            alert(`Redirecting to ${toolName} tool...`);
-            // In a real implementation, you would redirect to the actual tool page
-            // window.location.href = `/tools/${toolName.toLowerCase().replace(' ', '-')}`;
+
+        // Global variables
+
+        let currentActiveTool = null;
+
+
+
+        // Initialize the page
+
+        document.addEventListener('DOMContentLoaded', function() {
+
+            // Set up event listeners for tool buttons
+
+            const toolButtons = document.querySelectorAll('.use-tool-btn');
+
+            toolButtons.forEach(button => {
+
+                button.addEventListener('click', function() {
+
+                    const toolCard = this.closest('.tool-card');
+
+                    
+
+                    // Close any currently open tool
+
+                    if (currentActiveTool && currentActiveTool !== toolCard) {
+
+                        currentActiveTool.classList.remove('active');
+
+                    }
+
+                    
+
+                    // Toggle current tool
+
+                    toolCard.classList.toggle('active');
+
+                    currentActiveTool = toolCard.classList.contains('active') ? toolCard : null;
+
+                });
+
+            });
+
+            
+
+            // Set up event listeners for dynamic elements
+
+            document.getElementById('compress-quality').addEventListener('input', function() {
+
+                document.getElementById('quality-value').textContent = this.value + '%';
+
+            });
+
+            
+
+            document.getElementById('bg-replacement').addEventListener('change', function() {
+
+                const customColorContainer = document.getElementById('custom-color-container');
+
+                customColorContainer.style.display = this.value === 'custom' ? 'block' : 'none';
+
+            });
+
+            
+
+            document.getElementById('target-format').addEventListener('change', function() {
+
+                updateConversionOptions();
+
+            });
+
+        });
+
+
+
+        // Photo Resize Tool
+
+        function resizeImage() {
+
+            const fileInput = document.getElementById('resize-image');
+
+            const widthInput = document.getElementById('resize-width');
+
+            const heightInput = document.getElementById('resize-height');
+
+            const qualityInput = document.getElementById('resize-quality');
+
+            
+
+            if (!fileInput.files.length) {
+
+                alert('Please select an image first');
+
+                return;
+
+            }
+
+            
+
+            if (!widthInput.value && !heightInput.value) {
+
+                alert('Please enter either width or height');
+
+                return;
+
+            }
+
+            
+
+            const file = fileInput.files[0];
+
+            const reader = new FileReader();
+
+            
+
+            reader.onload = function(e) {
+
+                const img = new Image();
+
+                img.onload = function() {
+
+                    // Calculate dimensions while maintaining aspect ratio
+
+                    let width = widthInput.value ? parseInt(widthInput.value) : 0;
+
+                    let height = heightInput.value ? parseInt(heightInput.value) : 0;
+
+                    
+
+                    if (width && !height) {
+
+                        height = Math.round((width / img.width) * img.height);
+
+                    } else if (height && !width) {
+
+                        width = Math.round((height / img.height) * img.width);
+
+                    } else if (!width && !height) {
+
+                        width = img.width;
+
+                        height = img.height;
+
+                    }
+
+                    
+
+                    // Create canvas and resize
+
+                    const canvas = document.createElement('canvas');
+
+                    canvas.width = width;
+
+                    canvas.height = height;
+
+                    const ctx = canvas.getContext('2d');
+
+                    ctx.drawImage(img, 0, 0, width, height);
+
+                    
+
+                    // Display resized image
+
+                    const resizedImage = document.getElementById('resized-image');
+
+                    resizedImage.src = canvas.toDataURL('image/jpeg', qualityInput.value / 100);
+
+                    resizedImage.style.display = 'block';
+
+                    document.getElementById('resize-placeholder').style.display = 'none';
+
+                    
+
+                    // Enable download button
+
+                    const downloadBtn = document.getElementById('resize-download');
+
+                    downloadBtn.href = resizedImage.src;
+
+                    downloadBtn.style.display = 'inline-block';
+
+                };
+
+                img.src = e.target.result;
+
+            };
+
+            reader.readAsDataURL(file);
+
         }
+
+
+
+        // Signature Resize Tool
+
+        function resizeSignature() {
+
+            const fileInput = document.getElementById('signature-image');
+
+            const widthInput = document.getElementById('signature-width');
+
+            const backgroundSelect = document.getElementById('signature-background');
+
+            const customColor = document.getElementById('custom-bg-color');
+
+            
+
+            if (!fileInput.files.length) {
+
+                alert('Please select a signature image first');
+
+                return;
+
+            }
+
+            
+
+            const file = fileInput.files[0];
+
+            const reader = new FileReader();
+
+            
+
+            reader.onload = function(e) {
+
+                const img = new Image();
+
+                img.onload = function() {
+
+                    // Calculate height while maintaining aspect ratio
+
+                    const width = parseInt(widthInput.value) || 300;
+
+                    const height = Math.round((width / img.width) * img.height);
+
+                    
+
+                    // Create canvas
+
+                    const canvas = document.createElement('canvas');
+
+                    canvas.width = width;
+
+                    canvas.height = height;
+
+                    const ctx = canvas.getContext('2d');
+
+                    
+
+                    // Set background
+
+                    if (backgroundSelect.value === 'transparent') {
+
+                        // Do nothing - canvas is transparent by default
+
+                    } else if (backgroundSelect.value === 'white') {
+
+                        ctx.fillStyle = 'white';
+
+                        ctx.fillRect(0, 0, width, height);
+
+                    } else if (backgroundSelect.value === 'black') {
+
+                        ctx.fillStyle = 'black';
+
+                        ctx.fillRect(0, 0, width, height);
+
+                    } else if (backgroundSelect.value === 'custom') {
+
+                        ctx.fillStyle = customColor.value;
+
+                        ctx.fillRect(0, 0, width, height);
+
+                    }
+
+                    
+
+                    // Draw signature
+
+                    ctx.drawImage(img, 0, 0, width, height);
+
+                    
+
+                    // Display result
+
+                    const signatureOutput = document.getElementById('signature-output');
+
+                    signatureOutput.src = canvas.toDataURL('image/png');
+
+                    signatureOutput.style.display = 'block';
+
+                    document.getElementById('signature-placeholder').style.display = 'none';
+
+                    
+
+                    // Enable download button
+
+                    const downloadBtn = document.getElementById('signature-download');
+
+                    downloadBtn.href = signatureOutput.src;
+
+                    downloadBtn.style.display = 'inline-block';
+
+                };
+
+                img.src = e.target.result;
+
+            };
+
+            reader.readAsDataURL(file);
+
+        }
+
+
+
+        // JPG to PDF Tool (simulated)
+
+        function convertJpgToPdf() {
+
+            const fileInput = document.getElementById('jpg-files');
+
+            
+
+            if (!fileInput.files.length) {
+
+                alert('Please select at least one JPG image');
+
+                return;
+
+            }
+
+            
+
+            // In a real implementation, this would use a PDF library like pdf-lib or jspdf
+
+            // For this demo, we'll simulate the process
+
+            document.getElementById('pdf-conversion-status').textContent = 'Generating PDF...';
+
+            
+
+            setTimeout(() => {
+
+                document.getElementById('pdf-conversion-status').textContent = 'PDF generated successfully!';
+
+                const downloadBtn = document.getElementById('pdf-download');
+
+                downloadBtn.style.display = 'inline-block';
+
+                downloadBtn.onclick = function() {
+
+                    alert('In a real implementation, this would download the PDF file');
+
+                };
+
+            }, 1500);
+
+        }
+
+
+
+        // PDF to JPG Tool (simulated)
+
+        function convertPdfToJpg() {
+
+            const fileInput = document.getElementById('pdf-file');
+
+            
+
+            if (!fileInput.files.length) {
+
+                alert('Please select a PDF file first');
+
+                return;
+
+            }
+
+            
+
+            // In a real implementation, this would use a PDF library
+
+            document.getElementById('jpg-conversion-status').textContent = 'Converting PDF pages to JPG...';
+
+            
+
+            setTimeout(() => {
+
+                document.getElementById('jpg-conversion-status').textContent = 'Conversion complete!';
+
+                const downloadBtnsContainer = document.getElementById('jpg-download-btns');
+
+                downloadBtnsContainer.style.display = 'block';
+
+                downloadBtnsContainer.innerHTML = '<p>Download converted images:</p>';
+
+                
+
+                // Simulate 3 pages (for demo)
+
+                for (let i = 1; i <= 3; i++) {
+
+                    const btn = document.createElement('a');
+
+                    btn.className = 'btn download-btn';
+
+                    btn.style.display = 'inline-block';
+
+                    btn.style.marginRight = '0.5rem';
+
+                    btn.style.marginBottom = '0.5rem';
+
+                    btn.textContent = `Page ${i}`;
+
+                    btn.onclick = function() {
+
+                        alert(`In a real implementation, this would download page ${i} as JPG`);
+
+                    };
+
+                    downloadBtnsContainer.appendChild(btn);
+
+                }
+
+            }, 2000);
+
+        }
+
+
+
+        // Image Compressor Tool
+
+        function compressImage() {
+
+            const fileInput = document.getElementById('compress-image');
+
+            const quality = document.getElementById('compress-quality').value;
+
+            const format = document.getElementById('compress-format').value;
+
+            
+
+            if (!fileInput.files.length) {
+
+                alert('Please select an image first');
+
+                return;
+
+            }
+
+            
+
+            const file = fileInput.files[0];
+
+            const reader = new FileReader();
+
+            
+
+            reader.onload = function(e) {
+
+                const img = new Image();
+
+                img.onload = function() {
+
+                    // Create canvas
+
+                    const canvas = document.createElement('canvas');
+
+                    canvas.width = img.width;
+
+                    canvas.height = img.height;
+
+                    const ctx = canvas.getContext('2d');
+
+                    ctx.drawImage(img, 0, 0);
+
+                    
+
+                    // Determine output format
+
+                    let mimeType = 'image/jpeg';
+
+                    if (format === 'png') mimeType = 'image/png';
+
+                    if (format === 'webp') mimeType = 'image/webp';
+
+                    if (format === 'original') {
+
+                        // Use original file type
+
+                        mimeType = file.type;
+
+                    }
+
+                    
+
+                    // Compress image
+
+                    const compressedDataUrl = canvas.toDataURL(mimeType, quality / 100);
+
+                    
+
+                    // Display compressed image
+
+                    const compressedImage = document.getElementById('compressed-image');
+
+                    compressedImage.src = compressedDataUrl;
+
+                    compressedImage.style.display = 'block';
+
+                    document.getElementById('compress-placeholder').style.display = 'none';
+
+                    
+
+                    // Show compression stats
+
+                    const originalSize = file.size;
+
+                    const compressedSize = Math.round(compressedDataUrl.length * 0.75); // Approximate
+
+                    const reduction = Math.round((1 - (compressedSize / originalSize)) * 100);
+
+                    
+
+                    document.getElementById('original-size').textContent = formatFileSize(originalSize);
+
+                    document.getElementById('compressed-size').textContent = formatFileSize(compressedSize);
+
+                    document.getElementById('reduction-percent').textContent = reduction + '%';
+
+                    document.getElementById('compression-stats').style.display = 'block';
+
+                    
+
+                    // Enable download button
+
+                    const downloadBtn = document.getElementById('compress-download');
+
+                    downloadBtn.href = compressedDataUrl;
+
+                    downloadBtn.download = 'compressed-image.' + (format === 'original' ? file.name.split('.').pop() : format);
+
+                    downloadBtn.style.display = 'inline-block';
+
+                };
+
+                img.src = e.target.result;
+
+            };
+
+            reader.readAsDataURL(file);
+
+        }
+
+
+
+        // Resume Builder Tool
+
+        function previewResume() {
+
+            const template = document.getElementById('resume-template').value;
+
+            const name = document.getElementById('resume-name').value;
+
+            const title = document.getElementById('resume-title').value;
+
+            
+
+            if (!name) {
+
+                alert('Please enter your name');
+
+                return;
+
+            }
+
+            
+
+            // Generate simple HTML resume (in a real app this would use templates)
+
+            const html = `
+
+                <!DOCTYPE html>
+
+                <html>
+
+                <head>
+
+                    <style>
+
+                        body { font-family: Arial, sans-serif; line-height: 1.6; max-width: 800px; margin: 0 auto; padding: 20px; }
+
+                        .header { text-align: center; margin-bottom: 30px; }
+
+                        .name { font-size: 28px; font-weight: bold; margin-bottom: 5px; }
+
+                        .title { font-size: 18px; color: #555; margin-bottom: 20px; }
+
+                        .section { margin-bottom: 20px; }
+
+                        .section-title { font-size: 20px; border-bottom: 2px solid #333; padding-bottom: 5px; margin-bottom: 10px; }
+
+                        .experience { margin-bottom: 15px; }
+
+                        .job-title { font-weight: bold; }
+
+                        .company { font-style: italic; }
+
+                        .date { color: #666; }
+
+                    </style>
+
+                </head>
+
+                <body>
+
+                    <div class="header">
+
+                        <div class="name">${name}</div>
+
+                        <div class="title">${title || 'Professional'}</div>
+
+                    </div>
+
+                    
+
+                    <div class="section">
+
+                        <div class="section-title">Summary</div>
+
+                        <p>Experienced professional with a proven track record of success. Skilled in multiple areas and dedicated to continuous learning and improvement.</p>
+
+                    </div>
+
+                    
+
+                    <div class="section">
+
+                        <div class="section-title">Experience</div>
+
+                        <div class="experience">
+
+                            <div class="job-title">Senior Developer</div>
+
+                            <div class="company">Tech Solutions Inc.</div>
+
+                            <div class="date">2020 - Present</div>
+
+                            <ul>
+
+                                <li>Lead development team in creating innovative solutions</li>
+
+                                <li>Implemented new technologies to improve efficiency</li>
+
+                            </ul>
+
+                        </div>
+
+                    </div>
+
+                    
+
+                    <div class="section">
+
+                        <div class="section-title">Education</div>
+
+                        <div class="experience">
+
+                            <div class="job-title">Bachelor of Science in Computer Science</div>
+
+                            <div class="company">State University</div>
+
+                            <div class="date">2016 - 2020</div>
+
+                        </div>
+
+                    </div>
+
+                </body>
+
+                </html>
+
+            `;
+
+            
+
+            // Display preview
+
+            const preview = document.getElementById('resume-preview');
+
+            preview.srcdoc = html;
+
+            preview.style.display = 'block';
+
+            document.getElementById('resume-placeholder').style.display = 'none';
+
+            
+
+            // Show download button
+
+            document.querySelector('#resume-builder .download-btn').style.display = 'inline-block';
+
+        }
+
+
+
+        function downloadResume() {
+
+            alert('In a real implementation, this would generate and download a PDF version of your resume');
+
+        }
+
+
+
+        // Background Remover Tool (simulated)
+
+        function removeBackground() {
+
+            const fileInput = document.getElementById('bg-remove-image');
+
+            
+
+            if (!fileInput.files.length) {
+
+                alert('Please select an image first');
+
+                return;
+
+            }
+
+            
+
+            // In a real implementation, this would use a background removal API or library
+
+            document.getElementById('bg-remove-placeholder').textContent = 'Removing background...';
+
+            
+
+            const file = fileInput.files[0];
+
+            const reader = new FileReader();
+
+            
+
+            reader.onload = function(e) {
+
+                setTimeout(() => {
+
+                    // For demo purposes, we'll just display the original image
+
+                    const outputImage = document.getElementById('bg-removed-image');
+
+                    outputImage.src = e.target.result;
+
+                    outputImage.style.display = 'block';
+
+                    document.getElementById('bg-remove-placeholder').style.display = 'none';
+
+                    
+
+                    // Enable download button
+
+                    const downloadBtn = document.getElementById('bg-remove-download');
+
+                    downloadBtn.href = e.target.result;
+
+                    downloadBtn.style.display = 'inline-block';
+
+                }, 1500);
+
+            };
+
+            reader.readAsDataURL(file);
+
+        }
+
+
+
+        // File Converter Tool
+
+        function updateConversionOptions() {
+
+            const targetFormat = document.getElementById('target-format').value;
+
+            const optionsContainer = document.getElementById('conversion-options');
+
+            optionsContainer.innerHTML = '';
+
+            
+
+            if (targetFormat === 'jpg' || targetFormat === 'webp') {
+
+                const qualityLabel = document.createElement('label');
+
+                qualityLabel.textContent = 'Quality:';
+
+                optionsContainer.appendChild(qualityLabel);
+
+                
+
+                const qualityInput = document.createElement('input');
+
+                qualityInput.type = 'range';
+
+                qualityInput.id = 'conversion-quality';
+
+                qualityInput.min = '1';
+
+                qualityInput.max = '100';
+
+                qualityInput.value = '85';
+
+                optionsContainer.appendChild(qualityInput);
+
+                
+
+                const qualityValue = document.createElement('span');
+
+                qualityValue.id = 'conversion-quality-value';
+
+                qualityValue.textContent = '85%';
+
+                optionsContainer.appendChild(qualityValue);
+
+                
+
+                qualityInput.addEventListener('input', function() {
+
+                    qualityValue.textContent = this.value + '%';
+
+                });
+
+            }
+
+        }
+
+
+
+        function convertFile() {
+
+            const fileInput = document.getElementById('source-file');
+
+            const targetFormat = document.getElementById('target-format').value;
+
+            
+
+            if (!fileInput.files.length) {
+
+                alert('Please select a file to convert');
+
+                return;
+
+            }
+
+            
+
+            document.getElementById('conversion-status').textContent = `Converting to ${targetFormat.toUpperCase()}...`;
+
+            
+
+            // Simulate conversion process
+
+            setTimeout(() => {
+
+                document.getElementById('conversion-status').textContent = `File converted to ${targetFormat.toUpperCase()} successfully!`;
+
+                const downloadBtn = document.getElementById('converted-download');
+
+                downloadBtn.style.display = 'inline-block';
+
+                downloadBtn.textContent = `Download ${targetFormat.toUpperCase()} File`;
+
+                downloadBtn.onclick = function() {
+
+                    alert(`In a real implementation, this would download the converted ${targetFormat.toUpperCase()} file`);
+
+                };
+
+            }, 2000);
+
+        }
+
+
+
+        // Helper function to format file size
+
+        function formatFileSize(bytes) {
+
+            if (bytes < 1024) return bytes + ' bytes';
+
+            else if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
+
+            else return (bytes / 1048576).toFixed(1) + ' MB';
+
+        }
+
     </script>
+
 </body>
+
 </html>
+
+
