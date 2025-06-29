@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formmate - Your Multi-Tool Solution</title>
+    <style>
+        /* CSS Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #1E1E2F;
+            color: #EAEAEA;
+            line-height: 1.6;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: #2B2D42;
+            padding: 2rem 1rem;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: #FFD700;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* Main Content Styles */
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        /* Tool Card Styles */
+        .tool-card {
+            background-color: #3A3D5B;
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .tool-card:hover {
+            background-color: #FFD700;
+            color: #1E1E2F;
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(255, 215, 0, 0.2);
+        }
+
+        .tool-card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: inherit;
+        }
+
+        .tool-card p {
+            margin-bottom: 1.5rem;
+            color: inherit;
+            opacity: 0.9;
+        }
+
+        /* Button Styles */
+        .btn {
+            display: inline-block;
+            background-color: #FFD700;
+            color: #1E1E2F;
+            padding: 0.6rem 1.2rem;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+
+        .btn:hover {
+            background-color: #E6C200;
+        }
+
+        .tool-card:hover .btn {
+            background-color: #1E1E2F;
+            color: #FFD700;
+        }
+
+        .tool-card:hover .btn:hover {
+            background-color: #2B2D42;
+            color: #FFD700;
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: #2B2D42;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        footer p {
+            opacity: 0.8;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+
+            header h1 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .tool-card {
+                padding: 1.2rem;
+            }
+
+            .tool-card h2 {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Formmate</h1>
+        <p>Your all-in-one solution for digital tools</p>
+    </header>
+
+    <div class="container">
+        <div class="tools-grid">
+            <!-- Tool Card 1: Photo Resize -->
+            <div class="tool-card">
+                <h2>Photo Resize</h2>
+                <p>Quickly resize your images to any dimension while maintaining quality.</p>
+                <button class="btn" onclick="redirectToTool('Photo Resize')">Use Tool</button>
+            </div>
+
+            <!-- Tool Card 2: Signature Resize -->
+            <div class="tool-card">
+                <h2>Signature Resize</h2>
+                <p>Optimize your digital signatures for documents and forms.</p>
+                <button class="btn" onclick="redirectToTool('Signature Resize')">Use Tool</button>
+            </div>
+
+            <!-- Tool Card 3: JPG to PDF -->
+            <div class="tool-card">
+                <h2>JPG to PDF</h2>
+                <p>Convert your JPG images to PDF documents with ease.</p>
+                <button class="btn" onclick="redirectToTool('JPG to PDF')">Use Tool</button>
+            </div>
+
+            <!-- Tool Card 4: PDF to JPG -->
+            <div class="tool-card">
+                <h2>PDF to JPG</h2>
+                <p>Extract images from PDF files or convert entire pages to JPG.</p>
+                <button class="btn" onclick="redirectToTool('PDF to JPG')">Use Tool</button>
+            </div>
+
+            <!-- Tool Card 5: Image Compressor -->
+            <div class="tool-card">
+                <h2>Image Compressor</h2>
+                <p>Reduce image file size without noticeable quality loss.</p>
+                <button class="btn" onclick="redirectToTool('Image Compressor')">Use Tool</button>
+            </div>
+
+            <!-- Tool Card 6: Resume Builder -->
+            <div class="tool-card">
+                <h2>Resume Builder</h2>
+                <p>Create professional resumes with customizable templates.</p>
+                <button class="btn" onclick="redirectToTool('Resume Builder')">Use Tool</button>
+            </div>
+
+            <!-- Tool Card 7: Background Remover -->
+            <div class="tool-card">
+                <h2>Background Remover</h2>
+                <p>Remove backgrounds from images automatically with AI.</p>
+                <button class="btn" onclick="redirectToTool('Background Remover')">Use Tool</button>
+            </div>
+
+            <!-- Tool Card 8: File Converter -->
+            <div class="tool-card">
+                <h2>File Converter</h2>
+                <p>Convert between various file formats with just a few clicks.</p>
+                <button class="btn" onclick="redirectToTool('File Converter')">Use Tool</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2023 Formmate. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // JavaScript for button click functionality
+        function redirectToTool(toolName) {
+            alert(`Redirecting to ${toolName} tool...`);
+            // In a real implementation, you would redirect to the actual tool page
+            // window.location.href = `/tools/${toolName.toLowerCase().replace(' ', '-')}`;
+        }
+    </script>
+</body>
+</html>
