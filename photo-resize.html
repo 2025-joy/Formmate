@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Photo Resize Tool - FormMate</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+    body {
+      background-color: #121212;
+      color: #ffffff;
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+    }
+    h1 {
+      color: #00ffc8;
+    }
+    .tool-container {
+      max-width: 500px;
+      margin: auto;
+      background: #1e1e1e;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,255,255,0.2);
+    }
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+    input[type="file"] {
+      display: none;
+    }
+    select, input[type="number"] {
+      background-color: #1f1f1f;
+      color: #ffffff;
+    }
+    button {
+      background-color: #00ffc8;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    img {
+      max-width: 100%;
+      margin-top: 10px;
+      border-radius: 8px;
+    }
+    #drop-area {
+      border: 2px dashed #00ffc8;
+      padding: 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      background-color: #2b2b2b;
+    }
+    #drop-area.hover {
+      background-color: #3b3b3b;
+    }
+    #output-preview {
+      margin-top: 15px;
+    }
+    .aspect-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .aspect-row label {
+      font-size: 14px;
+    }
+    @media (max-width: 600px) {
+      .aspect-row {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="tool-container">
+    <h1>📷 Photo Resize Tool</h1>
+
+    <label for="file-input">
+      <div id="drop-area">📁 Drag & Drop Image Here or Click to Upload</div>
+    </label>
+    <input type="file" id="file-input" accept="image/*">
+
+    <input type="number" id="width" placeholder="New Width (px)">
+    <input type="number" id="height" placeholder="New Height (px)">
+    
+    <div class="aspect-row">
+      <label><input type="checkbox" id="lock-aspect" checked> Maintain Aspect Ratio</label>
+    </div>
+
+    <select id="format">
+      <option value="image/png">PNG</option>
+      <option value="image/jpeg">JPG</option>
+      <option value="image/webp">WEBP</option>
+    </select>
+
+    <button onclick="resizeImage()">Resize & Convert</button>
+
+    <div id="output-preview">
+      <h3>Preview:</h3>
+      <img id="preview" src="#" alt="" style="display: none;">
+      <a id="download" style="display: none;" download="resized-image">⬇️ Download Image</a>
+    </div>
+  </div>
+
+  <script>
+    let originalImage = new Image();
+    let aspectRatio = 1;
+    let fileType = "";
+
+    const dropArea = document.getElementById("drop-area");
+    const fileInput = document.getElementById("file-input");
+    const widthInput = document.getElementById("width");
+    const heightInput = document.getElementById("height");
+    const lockAspect = document.getElementById("lock-aspect");
+
+    dropArea.addEventListener("click", () => fileInput.click());
+
+    // Drag & Drop Logic
+    dropArea.addEventListener("dragover", (e) => {
+      e.preventDefault();
+      dropArea.classList.add("hover");
+    });
+
+    dropArea.addEventListener("dragleave", () => {
+      dropArea.classList.remove("hover");
+    });
+
+    dropArea.addEventListener("drop", (e) => {
+      e.preventDefault();
+      dropArea.classList.remove("hover");
+      const file = e.dataTransfer.files[0];
+      if (file) handleFile(file);
+    });
+
+    fileInput.addEventListener("change", function () {
+      const file = this.files[0];
+      if (file) handleFile(file);
+    });
+
+    function handleFile(file) {
+      const validTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/bmp', 'image/gif', 'image/tiff', 'image/webp'];
+      if (!validTypes.includes(file.type)) {
+        alert("Unsupported file format!");
+        return;
+      }
+
+      fileType = file.type;
+
+      const reader = new FileReader();
+      reader.onload = function (event) {
+        originalImage.src = event.target.result;
+        originalImage.onload = () => {
+          aspectRatio = originalImage.width / originalImage.height;
+          widthInput.value = originalImage.width;
+          heightInput.value = originalImage.height;
+          document.getElementById("preview").src = originalImage.src;
+          document.getElementById("preview").style.display = "block";
+        };
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // Maintain aspect ratio
+    widthInput.addEventListener("input", () => {
+      if (lockAspect.checked) {
+        heightInput.value = Math.round(widthInput.value / aspectRatio);
+      }
+    });
+
+    heightInput.addEventListener("input", () => {
+      if (lockAspect.checked) {
+        widthInput.value = Math.round(heightInput.value * aspectRatio);
+      }
+    });
+
+    function resizeImage() {
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d");
+
+      const width = parseInt(widthInput.value);
+      const height = parseInt(heightInput.value);
+      const format = document.getElementById("format").value;
+
+      if (!width || !height) {
+        alert("Please enter valid dimensions.");
+        return;
+      }
+
+      canvas.width = width;
+      canvas.height = height;
+
+      ctx.drawImage(originalImage, 0, 0, width, height);
+
+      const dataUrl = canvas.toDataURL(format);
+      document.getElementById("preview").src = dataUrl;
+      document.getElementById("preview").style.display = "block";
+
+      const downloadBtn = document.getElementById("download");
+      downloadBtn.href = dataUrl;
+      downloadBtn.download = `resized-image.${format.split('/')[1]}`;
+      downloadBtn.style.display = "inline-block";
+    }
+  </script>
+
+</body>
+</html>
